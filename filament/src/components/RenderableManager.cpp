@@ -77,6 +77,7 @@ struct RenderableManager::BuilderDetails {
     uint8_t mCommandChannel = RenderableManager::Builder::DEFAULT_CHANNEL;
     uint8_t mLightChannels = 1;
     uint16_t mInstanceCount = 1;
+    uint16_t mInstanceOffsetIndex = 0;
     bool mCulling : 1;
     bool mCastShadows : 1;
     bool mReceiveShadows : 1;
@@ -521,9 +522,10 @@ RenderableManager::Builder& RenderableManager::Builder::instances(size_t instanc
 }
 
 RenderableManager::Builder& RenderableManager::Builder::instances(
-        size_t instanceCount, InstanceBuffer* instanceBuffer) noexcept {
+        size_t instanceCount, InstanceBuffer* instanceBuffer, size_t offsetIndex) noexcept {
     mImpl->mInstanceCount = clamp(instanceCount, (size_t)1, CONFIG_MAX_INSTANCES);
     mImpl->mInstanceBuffer = downcast(instanceBuffer);
+    mImpl->mInstanceOffsetIndex = offsetIndex;
     return *this;
 }
 
@@ -581,6 +583,7 @@ void FRenderableManager::create(
         InstancesInfo& instances = manager[ci].instances;
         instances.count = builder->mInstanceCount;
         instances.buffer = builder->mInstanceBuffer;
+        instances.offsetIndex = builder->mInstanceOffsetIndex;
         if (instances.buffer) {
             // Allocate our instance buffer for this Renderable. We always allocate a size to match
             // PerRenderableUib, regardless of the number of instances. This is because the buffer

@@ -255,6 +255,7 @@ public:
 
         backend::RasterState rasterState;                               // 4 bytes
 
+        uint16_t instanceOffsetIndex;                                   // 2 bytes
         uint16_t instanceCount;                                         // 2 bytes [MSb: user]
         Variant materialVariant;                                        // 1 byte
         backend::PrimitiveType type : 3;                                // 1 byte       3 bits
@@ -262,7 +263,7 @@ public:
         bool hasMorphing : 1;                                           //              1 bit
         bool hasHybridInstancing : 1;                                   //              1 bit
 
-        uint32_t rfu[2];                                                // 16 bytes
+        uint16_t rfu[3];                                                // 6 bytes
     };
     static_assert(sizeof(PrimitiveInfo) == 56);
 

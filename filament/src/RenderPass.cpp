@@ -53,10 +53,8 @@
 #include <limits>
 #include <utility>
 
-#include <stddef.h>
-#include <stdint.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 
 using namespace utils;
 using namespace filament::math;
@@ -643,6 +641,7 @@ RenderPass::Command* RenderPass::generateCommandsImpl(RenderPass::CommandTypeFla
         cmd.info.index = i;
         cmd.info.hasHybridInstancing = (bool)soaInstanceInfo[i].handle;
         cmd.info.instanceCount = soaInstanceInfo[i].count;
+        cmd.info.instanceOffsetIndex = soaInstanceInfo[i].offsetIndex;
         cmd.info.hasMorphing = (bool)morphing.handle;
         cmd.info.hasSkinning = (bool)skinning.handle;
 
@@ -984,8 +983,8 @@ void RenderPass::Executor::execute(FEngine& engine,
 
                 // Bind per-renderable uniform block. There is no need to attempt to skip this command
                 // because the backends already do this.
-                size_t const offset = info.hasHybridInstancing ?
-                                      0 : info.index * sizeof(PerRenderableData);
+                size_t offset = info.hasHybridInstancing ? info.instanceOffsetIndex : info.index;
+                offset *= sizeof(PerRenderableData);
 
                 assert_invariant(info.boh);
 

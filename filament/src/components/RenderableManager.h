@@ -192,7 +192,7 @@ public:
         };
         backend::Handle<backend::HwBufferObject> handle;
         uint16_t count;
-        char padding0[2];
+        uint16_t offsetIndex;
     };
     static_assert(sizeof(InstancesInfo) == 16);
     inline InstancesInfo getInstancesInfo(Instance instance) const noexcept;

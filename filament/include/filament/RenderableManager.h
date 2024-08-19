@@ -569,9 +569,10 @@ public:
          * @param instanceCount the number of instances, silently clamped between 1 and
          *                      the result of Engine::getMaxAutomaticInstances().
          * @param instanceBuffer an InstanceBuffer containing at least instanceCount transforms
+         * @param offsetIndex offset index in the InstanceBuffer
          */
         Builder& instances(size_t instanceCount,
-                InstanceBuffer* UTILS_NONNULL instanceBuffer) noexcept;
+                InstanceBuffer* UTILS_NONNULL instanceBuffer, size_t offsetIndex = 0) noexcept;
 
         /**
          * Adds the Renderable component to an entity.

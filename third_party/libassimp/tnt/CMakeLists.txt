@@ -108,11 +108,17 @@ set(PRIVATE_HDRS
 
 # sources dependencies
 set(SRCS
+        ${SRC_DIR}/code/Collada/ColladaLoader.cpp
+        ${SRC_DIR}/code/Collada/ColladaParser.cpp
+        ${SRC_DIR}/code/Common/ZipArchiveIOSystem.cpp
+
         ${SRC_DIR}/code/STL/STLLoader.cpp
+
         ${SRC_DIR}/code/Common/Assimp.cpp
         ${SRC_DIR}/code/Common/BaseImporter.cpp
         ${SRC_DIR}/code/Common/BaseProcess.cpp
         ${SRC_DIR}/code/Common/Bitmap.cpp
+
         ${SRC_DIR}/code/CApi/CInterfaceIOWrapper.cpp
         ${SRC_DIR}/code/PostProcessing/CalcTangentsProcess.cpp
         ${SRC_DIR}/code/PostProcessing/ComputeUVMappingProcess.cpp
@@ -208,7 +214,6 @@ add_definitions(
         -DASSIMP_BUILD_NO_BVH_IMPORTER
         -DASSIMP_BUILD_NO_C4D_IMPORTER
         -DASSIMP_BUILD_NO_COB_IMPORTER
-        -DASSIMP_BUILD_NO_COLLADA_IMPORTER
         -DASSIMP_BUILD_NO_CSM_IMPORTER
         -DASSIMP_BUILD_NO_DXF_IMPORTER
         -DASSIMP_BUILD_NO_GLTF_IMPORTER
@@ -253,6 +258,7 @@ add_definitions(
 )
 
 # specify where our headers are
+include_directories(${SRC_DIR}/contrib/unzip)
 include_directories(${SRC_DIR}/contrib/irrXML)
 include_directories(${SRC_DIR}/contrib/rapidjson/include)
 include_directories(${SRC_DIR})

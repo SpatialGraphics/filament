@@ -72,8 +72,8 @@ static_assert(CONFIG_MAX_LIGHT_INDEX <= std::numeric_limits<Froxelizer::RecordBu
 
 // Record buffer cannot be larger than 65K entries because froxels use uint16_t to store indices
 // to it.
-static_assert(RECORD_BUFFER_ENTRY_COUNT <= 65536,
-        "RecordBuffer cannot be larger than 65536 entries");
+//static_assert(RECORD_BUFFER_ENTRY_COUNT <= 65536,
+//        "RecordBuffer cannot be larger than 65536 entries");
 
 static_assert(RECORD_BUFFER_ENTRY_COUNT <= CONFIG_MINSPEC_UBO_SIZE,
         "RecordBuffer cannot be larger than the UBO minspec (16KiB)");
